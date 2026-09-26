@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Construction Q&A</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #0f172a;
+      color: #f1f5f9;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2rem 1rem 4rem;
+    }
+    .container { max-width: 640px; width: 100%; margin: 0 auto; }
+
+    /* Hero */
+    .hero { text-align: center; padding: 5rem 0 2.5rem; }
+    .badge {
+      display: inline-block;
+      background: #1e3a5f;
+      color: #7dd3fc;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.9rem;
+      border-radius: 9999px;
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 800;
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+      background: linear-gradient(135deg, #ffffff 30%, #38bdf8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      color: #ffffff;
+    }
+    .hero .subtitle {
+      font-size: 1.15rem;
+      color: #94a3b8;
+      line-height: 1.65;
+      max-width: 520px;
+      margin: 0 auto 2.5rem;
+    }
+
+    /* Signup form */
+    .signup-form {
+      display: flex;
+      gap: 0.5rem;
+      max-width: 480px;
+      margin: 0 auto 1rem;
+    }
+    .signup-form input {
+      flex: 1;
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      padding: 0.75rem 1rem;
+      color: #f1f5f9;
+      font-size: 1rem;
+      outline: none;
+    }
+    .signup-form input:focus { border-color: #38bdf8; }
+    .signup-form button {
+      background: #0ea5e9;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 0.75rem 1.25rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: background 0.15s;
+    }
+    .signup-form button:hover { background: #38bdf8; }
+    .signup-hint {
+      text-align: center;
+      font-size: 0.82rem;
+      color: #475569;
+      margin-bottom: 2.5rem;
+    }
+    /* Multi-step form */
+    .step-q {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #cbd5e1;
+      margin-bottom: 0.75rem;
+      text-align: left;
+    }
+    .spend-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
+      margin-bottom: 0.75rem;
+    }
+    .spend-opt {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      padding: 0.65rem 0.5rem;
+      color: #cbd5e1;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+      text-align: center;
+    }
+    .spend-opt:hover { border-color: #38bdf8; color: #f1f5f9; }
+    .spend-opt.selected { border-color: #38bdf8; background: #0f2d45; color: #f1f5f9; }
+    .role-input {
+      width: 100%;
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 8px;
+      padding: 0.65rem 1rem;
+      color: #f1f5f9;
+      font-size: 0.95rem;
+      outline: none;
+      margin-bottom: 0.75rem;
+    }
+    .role-input:focus { border-color: #38bdf8; }
+    .submit-btn {
+      width: 100%;
+      background: #0ea5e9;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 0.75rem;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s;
+    }
+    .submit-btn:hover:not(:disabled) { background: #38bdf8; }
+    .submit-btn:disabled { opacity: 0.4; cursor: default; }
+
+    /* Price note */
+    .price-note {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #64748b;
+      margin-bottom: 3rem;
+    }
+    .price-note strong { color: #7dd3fc; }
+
+    /* Feature cards */
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 1rem;
+      margin-bottom: 3rem;
+    }
+    .card {
+      background: #1e293b;
+      border: 1px solid #334155;
+      border-radius: 12px;
+      padding: 1.25rem;
+    }
+    .card .icon { display: block; margin-bottom: 0.75rem; width: 28px; height: 28px; }
+    .card .icon svg { width: 28px; height: 28px; }
+    .card strong { display: block; font-size: 0.95rem; margin-bottom: 0.35rem; color: #f1f5f9; }
+    .card p { font-size: 0.85rem; color: #94a3b8; line-height: 1.5; }
+
+    /* Footer */
+    footer { text-align: center; color: #334155; font-size: 0.8rem; padding-top: 1rem; }
+
+    @media (max-width: 480px) {
+      .signup-form { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <section class="hero">
+      <span class="badge">Early access</span>
+      <h1>Get straight answers on building regulations without hiring a lawyer</h1>
+      <p class="subtitle">Plain-English answers to your building regulation questions, for homeowners and builders, no lawyer needed.</p>
+      
+    <!-- Step 1: email -->
+    <form id="step1" class="signup-form" onsubmit="goStep2(event)">
+      <input type="email" id="email-val" placeholder="your@email.com" required />
+      <button type="submit">Continue &rarr;</button>
+    </form>
+
+    <!-- Step 2: spend + role -->
+    <div id="step2" style="display:none;max-width:480px;margin:0 auto;">
+      <p class="step-q">How much would you pay for Construction Q&A?</p>
+      <div class="spend-grid">
+        <button type="button" class="spend-opt" onclick="selectSpend(this)">Less than $79/mo</button>
+        <button type="button" class="spend-opt" onclick="selectSpend(this)">Around $79/mo</button>
+        <button type="button" class="spend-opt" onclick="selectSpend(this)">More than $79/mo</button>
+        <button type="button" class="spend-opt" onclick="selectSpend(this)">Need to see it first</button>
+      </div>
+      <input id="role-val" type="text" class="role-input" placeholder="Your role (optional)" />
+      <button id="submit-btn" class="submit-btn" onclick="submitForm()" disabled>Join the waitlist &rarr;</button>
+    </div>
+
+    <!-- Done -->
+    <p id="done-msg" style="display:none;color:#4ade80;margin-top:1rem;text-align:center;font-size:1.05rem;">
+      &#10003; You're on the list &mdash; we'll be in touch!
+    </p>
+
+    <script>
+      var selectedSpend = null;
+
+      function goStep2(e) {
+        e.preventDefault();
+        document.getElementById('step1').style.display = 'none';
+        document.getElementById('step2').style.display = 'block';
+      }
+
+      function selectSpend(btn) {
+        document.querySelectorAll('.spend-opt').forEach(function(b) {
+          b.classList.remove('selected');
+        });
+        btn.classList.add('selected');
+        selectedSpend = btn.textContent;
+        document.getElementById('submit-btn').disabled = false;
+      }
+
+      function submitForm() {
+        var email = document.getElementById('email-val').value;
+        var role  = document.getElementById('role-val').value;
+        document.getElementById('step2').style.display = 'none';
+        document.getElementById('done-msg').style.display = 'block';
+        var body = 'entry.49684355=' + encodeURIComponent(email)
+                 + '&entry.441218212=' + encodeURIComponent(selectedSpend)
+                 + '&entry.629651604='  + encodeURIComponent(role)
+                 + '&entry.202204044=' + encodeURIComponent('Construction Q&A');
+        fetch('https://docs.google.com/forms/d/e/1FAIpQLSdcB5WBoYURDCSRP0LmlLmMnx4lL_n1Er2eKKsQ35HGvE5e2w/formResponse', {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: body
+        });
+      }
+    </script>
+      <p class="signup-hint">No spam &middot; Unsubscribe anytime</p>
+      <p class="price-note">Early access from <strong>$79/mo</strong> &mdash; lock in founder pricing</p>
+    </section>
+    
+  <section class="features">
+    <div class="card"><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span><strong>Straight Answers, Fast</strong><p>Ask any building regulation question and get a clear, plain answer.</p></div>
+    <div class="card"><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></svg></span><strong>Cites the Exact Clause</strong><p>Every answer links to the specific code section it relies on.</p></div>
+    <div class="card"><span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></span><strong>Skip the Legal Fees</strong><p>Resolve routine compliance questions without booking a lawyer.</p></div>
+  </section>
+  </div>
+  <footer>Built by independent makers</footer>
+</body>
+</html>
